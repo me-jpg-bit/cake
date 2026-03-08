@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Women's Day 🎉</title>
+<style>
+body {
+    margin:0;
+    padding:0;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: linear-gradient(135deg, #ffd1dc, #c1b3ff, #a0e7e5);
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    flex-direction:column;
+}
+
+/* Countdown */
+#countdown {
+    font-size:80px;
+    color:#00bfff;
+    text-shadow:2px 2px 7px #0000ff;
+    animation: bounce 0.6s infinite alternate;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-25px); }
+}
+
+/* Loading text */
+#loading {
+    font-size:32px;
+    color:#1e90ff;
+    display:none;
+    margin-top:10px;
+}
+
+/* Chibi guide */
+#chibi {
+    display:none;
+    text-align:center;
+    position:relative;
+}
+
+#chibi img {
+    width:200px;
+    animation: float 2s infinite alternate;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+#hint {
+    font-size:24px;
+    color:#ff69b4;
+    margin-top:10px;
+}
+
+/* Confetti */
+.confetti {
+    position:fixed;
+    width:8px;
+    height:8px;
+    background:var(--confetti-col);
+    animation: fall 3s infinite ease-out;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-100px) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+}
+
+/* Chibi cute cake */
+#cake {
+    display:none;
+    position:relative;
+    margin-top:30px;
+    width:180px;
+    height:160px;
+}
+
+#cake-base {
+    width:180px;
+    height:100px;
+    background:#ffb6c1;
+    border-radius:30px;
+    position:absolute;
+    bottom:0;
+    box-shadow:0 5px 0 #ff69b4;
+}
+
+#cake-top {
+    width:140px;
+    height:60px;
+    background:#ff69b4;
+    border-radius:50% 50% 0 0;
+    position:absolute;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    box-shadow:0 5px 0 #ff1493;
+}
+
+#cake-face {
+    position:absolute;
+    top:35px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.eye {
+    width:12px;
+    height:12px;
+    background:#000;
+    border-radius:50%;
+    display:inline-block;
+    margin:0 10px;
+}
+
+.mouth {
+    width:40px;
+    height:15px;
+    border-bottom:3px solid #000;
+    border-radius:0 0 20px 20px;
+    margin:5px auto 0;
+}
+
+/* Candle */
+#candle {
+    width:12px;
+    height:40px;
+    background:#ffd700;
+    position:absolute;
+    top:-40px;
+    left:50%;
+    transform:translateX(-50%);
+    border-radius:3px;
+}
+
+/* Slice overlay */
+#sliceOverlay {
+    position:absolute;
+    width:200px;
+    height:160px;
+    top:-10px;
+    left:-10px;
+    cursor:grab;
+}
+
+/* Final message box with scroll */
+#finalMsgBox {
+    display:none;
+    width:300px;
+    height:250px;
+    background:rgba(255,255,255,0.8);
+    border-radius:20px;
+    padding:15px;
+    overflow-y:scroll;
+    text-align:center;
+    font-size:20px;
+    color:#ff1493;
+    box-shadow:0 0 15px #ff69b4;
+}
+
+#finalMsgBox::-webkit-scrollbar {
+    width:8px;
+}
+
+#finalMsgBox::-webkit-scrollbar-thumb {
+    background:#ff69b4;
+    border-radius:10px;
+}
+
+#finalMsgBox h2 {
+    margin-top:0;
+    font-size:24px;
+}
+
+/* Cute line spacing */
+.line {
+    margin:12px 0;
+}
+</style>
+</head>
+<body>
+
+<div id="countdown">3</div>
+<div id="loading">Loading today's special present...</div>
+
+<div id="chibi">
+    <img src="https://i.imgur.com/0Yp4LqX.png" alt="Cute Chibi">
+    <div id="hint">Swipe anywhere to cut the cake!</div>
+</div>
+
+<div id="cake">
+    <div id="cake-base"></div>
+    <div id="cake-top"></div>
+    <div id="cake-face">
+        <div class="eye"></div>
+        <div class="eye"></div>
+        <div class="mouth"></div>
+    </div>
+    <div id="candle"></div>
+    <div id="sliceOverlay"></div>
+</div>
+
+<div id="finalMsgBox">
+    <h2>🎉 Happy Women's Day! 🎉</h2>
+    <div class="line">May your day be filled with smiles!</div>
+    <div class="line">Lots of love and happiness to you!</div>
+    <div class="line">You are amazing, strong, and inspiring!</div>
+    <div class="line">Celebrate yourself and all your achievements!</div>
+    <div class="line">Wishing you laughter and joy today and always!</div>
+    <div class="line">May every dream you have come true!</div>
+    <div class="line">You deserve all the hugs and cupcakes!</div>
+    <div class="line">Shine bright like the star you are!</div>
+    <div class="line">Sending you endless love and glitter!</div>
+    <div class="line">Thank you for being uniquely wonderful!</div>
+</div>
+
+<script>
+let countdownEl = document.getElementById("countdown");
+let loadingEl = document.getElementById("loading");
+let chibiEl = document.getElementById("chibi");
+let cakeEl = document.getElementById("cake");
+let sliceEl = document.getElementById("sliceOverlay");
+let finalMsgBox = document.getElementById("finalMsgBox");
+
+// confetti setup
+function makeConfetti() {
+    for(let i = 0; i < 50; i++){
+        let conf = document.createElement("div");
+        conf.className = "confetti";
+        conf.style.setProperty('--confetti-col', `hsl(${Math.random()*360}, 80%, 70%)`);
+        conf.style.left = Math.random()*100 + "vw";
+        conf.style.animationDelay = Math.random()*3 + "s";
+        document.body.appendChild(conf);
+    }
+}
+
+// countdown logic
+let count = 3;
+let interval = setInterval(() => {
+    countdownEl.textContent = count;
+    count--;
+    if(count < 0){
+        clearInterval(interval);
+        countdownEl.style.display="none";
+        loadingEl.style.display="block";
+        setTimeout(() => {
+            loadingEl.style.display="none";
+            chibiEl.style.display="block";
+            cakeEl.style.display="block";
+            makeConfetti();
+        }, 2000);
+    }
+}, 1000);
+
+// slicing logic
+sliceEl.addEventListener("mousedown", () => {
+    cakeEl.style.display="none";
+    chibiEl.style.display="none";
+    finalMsgBox.style.display="block";
+});
+</script>
+
+</body>
+</html>
